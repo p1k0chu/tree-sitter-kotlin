@@ -530,11 +530,12 @@ static bool scan_automatic_semicolon(TSLexer *lexer, const bool *valid_symbols) 
       case '=':
       case '{':
       case '[':
-      case '(':
       case '?':
       case '|':
       case '&':
         return false;
+      case '(':
+        return true;
 
       // Handle `/` — could be division, line comment, or block comment.
       // For division: no ASI (continuation operator).
@@ -562,8 +563,10 @@ static bool scan_automatic_semicolon(TSLexer *lexer, const bool *valid_symbols) 
           switch (lexer->lookahead) {
             case '.': case ',': case ':': case '*': case '%':
             case '>': case '<': case '=': case '{': case '[':
-            case '(': case '?': case '|': case '&': case '/':
+            case '?': case '|': case '&': case '/':
               return false;
+            case '(':
+              return true;
             case '!':
               skip(lexer);
               if (lexer->lookahead == '=') return false;

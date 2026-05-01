@@ -814,9 +814,7 @@ Comment before call parentheses
 ================================================================================
 
 fun foo() {
-    bar
-        // comment
-        (1, 2)
+    bar /* comment */ (1, 2)
 }
 
 --------------------------------------------------------------------------------
@@ -829,7 +827,7 @@ fun foo() {
       (statements
         (call_expression
           (simple_identifier)
-          (line_comment)
+          (multiline_comment)
           (call_suffix
             (value_arguments
               (value_argument
