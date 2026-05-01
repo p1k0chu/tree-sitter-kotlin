@@ -1,0 +1,78 @@
+================================================================================
+Newlines and call expressions
+================================================================================
+
+foo(1)
+foo
+    (1)
+
+---
+
+(source_file
+  (call_expression
+    (simple_identifier)
+    (call_suffix
+      (value_arguments
+        (value_argument
+          (integer_literal)))))
+  (simple_identifier)
+  (parenthesized_expression
+    (integer_literal)))
+
+================================================================================
+Assignment with newline before parentheses
+================================================================================
+
+val x =
+(1)
+(1)
+
+---
+
+(source_file
+  (property_declaration
+    (binding_pattern_kind)
+    (variable_declaration
+      (simple_identifier))
+    (parenthesized_expression
+      (integer_literal)))
+  (parenthesized_expression
+    (integer_literal)))
+
+================================================================================
+Unrelated parenthesized expression on a new line
+================================================================================
+
+val x = "hello world"
+(unrelated + code)
+
+---
+
+(source_file
+  (property_declaration
+    (binding_pattern_kind)
+    (variable_declaration
+      (simple_identifier))
+    (string_literal
+      (string_content)))
+  (parenthesized_expression
+    (additive_expression
+      (simple_identifier)
+      (simple_identifier))))
+
+================================================================================
+Multiplicative expr with parentheses on a new line
+================================================================================
+
+6 *
+(7 + 2)
+
+---
+
+(source_file
+  (multiplicative_expression
+    (integer_literal)
+    (parenthesized_expression
+      (additive_expression
+        (integer_literal)
+        (integer_literal)))))
